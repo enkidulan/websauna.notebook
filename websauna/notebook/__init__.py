@@ -31,20 +31,6 @@ class AddonInitializer:
         self.config.scan(subscribers)
 
 
-class Initializer(WSInitializer):
-    """A demo / test app initializer for testing addon websauna.notebook."""
-
-    def include_addons(self):
-        """Include this addon in the configuration."""
-        self.config.include("websauna.notebook")
-
-
-def main(global_config, **settings):
-    init = Initializer(global_config)
-    init.run()
-    return init.make_wsgi_app()
-
-
 def includeme(config: Configurator):
     """Entry point for Websauna main app to include this addon.
 

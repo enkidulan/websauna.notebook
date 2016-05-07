@@ -39,7 +39,5 @@ setup(name='websauna.notebook',
 
       # Define where this application starts as referred by WSGI web servers
       entry_points="""\
-      [paste.app_factory]
-      main = websauna.notebook:main
       """,
       )

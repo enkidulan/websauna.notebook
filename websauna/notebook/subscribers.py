@@ -13,7 +13,8 @@ def contribute_admin(event):
         return
     if not isinstance(event['context'], UserAdmin.Resource):
         return
-
+    if "shell" in [i.id for i in event['view'].resource_buttons]:
+        return
     button = TraverseLinkButton(
         id="shell",
         name="Shell",
