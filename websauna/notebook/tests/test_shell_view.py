@@ -1,13 +1,7 @@
 """An example py.test functional test case."""
 
-import transaction
 import time
-from sqlalchemy.orm.session import Session
-from splinter.driver import DriverAPI
-
-from websauna.tests.utils import create_user
-from websauna.tests.utils import EMAIL
-from websauna.tests.utils import PASSWORD, create_logged_in_user
+from websauna.tests.utils import create_logged_in_user
 
 
 def test_context_sensitive_shell(web_server, browser, dbsession, init):

@@ -1,17 +1,23 @@
 from pyramid.events import subscriber
-from websauna.system.admin import menu
-from websauna.system.admin.events import AdminConstruction
+from websauna.system.crud.views import TraverseLinkButton
+from pyramid.events import BeforeRender
+from websauna.system.user.admins import UserAdmin
 
 
-@subscriber(AdminConstruction)
+@subscriber(BeforeRender)
 def contribute_admin(event):
     """Add notebook entry to the admin user interface."""
-    admin = event.admin
 
-    entry = menu.RouteEntry(
-        "admin-notebook",
-        label="Shell",
-        icon="fa-terminal",
-        route_name="admin_shell",
-        condition=lambda entry, request: request.has_permission('shell'))
-    admin.get_quick_menu().add_entry(entry)
+    # XXX: dummy way of adding button on context
+    if not event['view']:
+        return
+    if not isinstance(event['context'], UserAdmin.Resource):
+        return
+
+    button = TraverseLinkButton(
+        id="shell",
+        name="Shell",
+        view_name="shell",
+        permission="shell",
+        tooltip="Open IPython Notebook shell and have this item prepopulated in obj variable.")
+    event['view'].resource_buttons.append(button)
