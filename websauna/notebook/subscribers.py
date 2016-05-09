@@ -9,9 +9,10 @@ def contribute_admin(event):
     """Add notebook entry to the admin user interface."""
 
     # XXX: dummy way of adding button on context
-    if not event['view']:
+    if not isinstance(event.get('context'), UserAdmin.Resource):
         return
-    if not isinstance(event['context'], UserAdmin.Resource):
+    view = event.get('view')
+    if view is None or not hasattr(view, 'resource_buttons'):
         return
     if "shell" in [i.id for i in event['view'].resource_buttons]:
         return
